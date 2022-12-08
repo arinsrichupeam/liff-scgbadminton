@@ -33,7 +33,12 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="space-y-20">
-      <Image src="/img/logo_dark.png" alt="Logo" width={300} height={100} />
+        <Image
+          src="https://scgbadmintonacademy.com/wp-content/uploads/2022/11/logo_dark.png"
+          alt="Logo"
+          width={300}
+          height={100}
+        />
         <div className="text-center w-25 h-25">
           <div role="status">
             <svg
