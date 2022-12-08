@@ -1,7 +1,7 @@
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import Router from "next/router";
-import Logo from "../components/logo";
+import Image from "next/image";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="space-y-20">
-        <Logo></Logo>
+      <Image src="/img/logo_dark.png" alt="Logo" width={300} height={100} />
         <div className="text-center w-25 h-25">
           <div role="status">
             <svg

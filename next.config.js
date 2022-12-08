@@ -3,12 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    formats: ['image/png'],
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'liff.scgbadmintonacademy.com',
-        pathname: '/img/**',
+        hostname: 'assets.vercel.com',
+        port: '',
+        pathname: '/image/upload/**',
       },
     ],
   },
