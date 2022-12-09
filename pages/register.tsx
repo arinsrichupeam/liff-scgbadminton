@@ -7,19 +7,19 @@ export default function register() {
   const { data: session } = useSession();
   if (session) {
     return (
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex min-h-full items-center justify-center pl-7 pr-7 py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
             <div className="flex items-center justify-center">
               <Logo></Logo>
             </div>
-            <h2 className="mt-6 text-center text-5xl font-SCGBold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-4xl font-SCGBold tracking-tight text-gray-900">
               สมัครสมาชิก
             </h2>
           </div>
 
           <form action="/api/users" method="post">
-            <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <div className="grid gap-5 mb-6 md:grid-cols-2 ">
               <div className="form-group">
                 <label
                   htmlFor="first_name"
@@ -81,7 +81,7 @@ export default function register() {
                 <select
                   id="sex"
                   name="sex"
-                  className="relative w-full font-SCGRegular text-sm cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500 sm:text-sm"
+                  className="border border-gray-300 text-gray-900 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 block w-full p-2.5"
                 >
                   <option value={"M"}>Male</option>
                   <option value={"F"}>Female</option>
