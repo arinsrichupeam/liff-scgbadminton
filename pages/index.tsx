@@ -5,30 +5,30 @@ import Logo from "../components/logo";
 
 export default function Home() {
   const { data: session, status } = useSession();
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     const timer = setTimeout(() => {
-  //       void signIn("line");
-  //     }, 3000);
-  //   } else if (status === "authenticated") {
-  //     const fetchData = async () => {
-  //       await fetch(`/api/users/${session?.user?.email}`)
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           if (data?.profile.length <= 0) {
-  //             const timer = setTimeout(() => {
-  //               return Router.push("register");
-  //             }, 3000);
-  //           } else {
-  //             const timer = setTimeout(() => {
-  //               return Router.push("checkin");
-  //             }, 3000);
-  //           }
-  //         });
-  //     };
-  //     fetchData();
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      const timer = setTimeout(() => {
+        void signIn("line");
+      }, 3000);
+    } else if (status === "authenticated") {
+      const fetchData = async () => {
+        await fetch(`/api/users/${session?.user?.email}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data?.profile.length <= 0) {
+              const timer = setTimeout(() => {
+                return Router.push("register");
+              }, 3000);
+            } else {
+              const timer = setTimeout(() => {
+                return Router.push("checkin");
+              }, 3000);
+            }
+          });
+      };
+      fetchData();
+    }
+  }, [session]);
 
   return (
     <div className="flex items-center justify-center h-screen">
