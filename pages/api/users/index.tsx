@@ -35,9 +35,9 @@ const createProfile = async (req: NextApiRequest, res: NextApiResponse) => {
     //   },
     // });
 
-    console.log("call even");
+    console.log("call even register");
 
-    return res.redirect(307, "/checkin").end();
+    return res.redirect(307, "/checkin");
   } catch (error) {
     return res.status(500).json({ message: error });
   }

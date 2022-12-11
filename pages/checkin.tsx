@@ -24,7 +24,6 @@ export default function checkin() {
         </div>
         <form action="/api/checkin" method="post">
           <div className="mb-6">
-            {" "}
             <div className="form-group">
               <label
                 htmlFor="checkin-time"
@@ -45,22 +44,19 @@ export default function checkin() {
           <div className="grid gap-5 mb-6 md:grid-cols-2 ">
             <div className="form-group">
               <label
-                htmlFor="sex"
+                htmlFor="coad-number"
                 className="block mb-2 text-sm font-SCGRegular text-gray-900 "
               >
                 Coad Number
               </label>
               <select
-                id="sex"
-                name="sex"
+                id="coad-number"
+                name="coad_number"
                 className="border bg-white h-12 border-gray-300 text-gray-900 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 block w-full p-2.5"
               >
                 {options.map((index) => (
                   <option value={index}>{index}</option>
                 ))}
-                {/* <option value={"M"}>Male</option>
-                <option value={"F"}>Female</option>
-                <option value={"N"}>Do not want to specify</option> */}
               </select>
             </div>
 
@@ -101,6 +97,7 @@ export default function checkin() {
                   <input
                     id="question-radio-g1-1"
                     type="radio"
+                    value={"1"}
                     name="question-radio-g1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
@@ -120,6 +117,7 @@ export default function checkin() {
                   <input
                     id="question-radio-g1-2"
                     type="radio"
+                    value={"2"}
                     name="question-radio-g1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
@@ -140,6 +138,7 @@ export default function checkin() {
                   <input
                     id="question-radio-g1-3"
                     type="radio"
+                    value={"3"}
                     required
                     name="question-radio-g1"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -171,6 +170,7 @@ export default function checkin() {
                 <div className="flex items-center mb-4">
                   <input
                     id="question-radio-g2-1"
+                    value={"1"}
                     type="radio"
                     name="question-radio-g2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -186,6 +186,7 @@ export default function checkin() {
                 <div className="flex items-center mb-4">
                   <input
                     id="question-radio-g2-2"
+                    value={"2"}
                     type="radio"
                     name="question-radio-g2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -202,6 +203,7 @@ export default function checkin() {
                   <input
                     id="question-radio-g2-3"
                     required
+                    value={"3"}
                     type="radio"
                     name="question-radio-g2"
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"

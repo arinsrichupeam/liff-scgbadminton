@@ -18,6 +18,7 @@ export default function register() {
         </div>
 
         <form action="/api/users" method="post">
+          <></>
           {/* <div className="grid gap-5 mb-6 md:grid-cols-2 ">
             <div className="form-group">
               <label
