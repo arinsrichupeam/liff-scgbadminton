@@ -128,7 +128,6 @@ export default function App() {
         datepickerHeaderDate.getDate()
       )
     );
-    // console.log(year);
     setType("date");
   };
 
@@ -184,7 +183,7 @@ export default function App() {
           </div>
           {showDatepicker && (
             <div
-              className="bg-white mt-12 rounded-lg shadow p-4 absolute top-0 left-0"
+              className="bg-white  mt-12 rounded-lg shadow p-4 absolute top-0 left-0"
               style={{ width: "17rem" }}
             >
               <div className="flex justify-between items-center mb-2">
