@@ -19,7 +19,7 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log(required);
 
-    return res.redirect(307, "/thankyou");
+    return res.redirect(302, "/thankyou");
   } catch (error) {
     return res.status(500).json({ message: error });
   }

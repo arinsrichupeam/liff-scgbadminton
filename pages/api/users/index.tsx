@@ -17,27 +17,27 @@ export default async function handler(
 const createProfile = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { body: required } = req;
-    // await prisma.user.update({
-    //   where: {
-    //     email: required["email"],
-    //   },
-    //   data: {
-    //     profile: {
-    //       create: {
-    //         firstname: required["first_name"],
-    //         lastname: required["last_name"],
-    //         nickname: required["nick_name"],
-    //         sex: required["sex"],
-    //         phone: required["phone"],
-    //         birthday: new Date(required["birthday"]),
-    //       },
-    //     },
-    //   },
-    // });
+    await prisma.user.update({
+      where: {
+        email: required["email"],
+      },
+      data: {
+        profile: {
+          create: {
+            firstname: required["first_name"],
+            lastname: required["last_name"],
+            nickname: required["nick_name"],
+            sex: required["sex"],
+            phone: required["phone"],
+            birthday: new Date(required["birthday"]),
+          },
+        },
+      },
+    });
 
     console.log("call even register");
 
-    return res.redirect(307, "/checkin");
+    return res.redirect(302, "/");
   } catch (error) {
     return res.status(500).json({ message: error });
   }

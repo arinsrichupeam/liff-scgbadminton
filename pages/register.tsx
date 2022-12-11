@@ -19,7 +19,7 @@ export default function register() {
 
         <form action="/api/users" method="post">
           <></>
-          {/* <div className="grid gap-5 mb-6 md:grid-cols-2 ">
+          <div className="grid gap-5 mb-6 md:grid-cols-2 ">
             <div className="form-group">
               <label
                 htmlFor="first_name"
@@ -115,9 +115,9 @@ export default function register() {
                 required
               />
             </div>
-          </div> */}
+          </div>
 
-          {/* <div className="mb-6">
+          <div className="mb-6">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-SCGRegular text-gray-900 "
@@ -132,9 +132,9 @@ export default function register() {
               readOnly
               className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             />
-          </div> */}
+          </div>
 
-          {/* <div className="flex items-start mb-6">
+          <div className="flex items-start mb-6">
             <div className="flex items-center h-5">
               <input
                 id="remember"
@@ -153,7 +153,7 @@ export default function register() {
               </a>
               .
             </label>
-          </div>  */}
+          </div>
 
           <button
             type="submit"
