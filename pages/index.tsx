@@ -5,6 +5,7 @@ import Logo from "../components/logo";
 
 export default function Home() {
   const { data: session, status } = useSession();
+  
   useEffect(() => {
     if (status === "unauthenticated") {
       const timer = setTimeout(() => {
