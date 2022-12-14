@@ -16,9 +16,8 @@ export default async function handler(
 const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { body: required } = req;
-
-    console.log(required);
-
+    // console.log(required);
+    
     return res.redirect(302, "/thankyou");
   } catch (error) {
     return res.status(500).json({ message: error });

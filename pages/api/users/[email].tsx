@@ -14,6 +14,12 @@ export default async function handler(
         id: true,
         email: true,
         image: true,
+        accounts: {
+          select: {
+            access_token: true,
+            providerAccountId: true,
+          },
+        },
         profile: {
           select: {
             birthday: true,
@@ -26,7 +32,7 @@ export default async function handler(
       },
     });
 
-    console.log(result);
+    // console.log(result);
 
     return res.status(200).json(result);
   } catch (error) {
