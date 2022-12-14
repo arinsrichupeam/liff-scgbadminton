@@ -16,8 +16,9 @@ declare global {
     name: string;
     email: string;
     image: string | "";
-    account: Account;
-    profile: Profile;
+    accounts: Account[];
+    profile: Profile[];
+    covidchk: CovidCheckIn;
   };
 
   type Account = {
@@ -34,5 +35,15 @@ declare global {
     sex: string | null;
     phone: string | null;
     birthday: Date | null;
+  };
+
+  type CovidCheckIn = {
+    id: String;
+    user: User;
+    userId: String;
+    temp: Int;
+    cordNumber: Int;
+    question: String;
+    checkinTime: DateTime?;
   };
 }

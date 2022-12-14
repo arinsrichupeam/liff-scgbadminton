@@ -6,32 +6,18 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const result = await prisma.user.findUnique({
+    const result = await prisma.user.findMany({
       where: {
         email: req.query.email?.toString(),
       },
-      select: {
-        id: true,
-        email: true,
-        image: true,
-        accounts: {
+      include: {
+        _count: {
           select: {
-            access_token: true,
-            providerAccountId: true,
-          },
-        },
-        profile: {
-          select: {
-            birthday: true,
-            phone: true,
-            firstname: true,
-            lastname: true,
-            sex: true,
+            covidCheckin: true,
           },
         },
       },
     });
-
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: error });

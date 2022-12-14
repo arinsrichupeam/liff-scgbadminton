@@ -27,17 +27,3 @@ if (process.env.NODE_ENV === "production") {
   lineSdk = global.lineSdk;
 }
 export default lineSdk;
-
-// const client = new Client(clientConfig);
-
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   const response: TextMessage = {
-//     type: "text",
-//     text: `ขอบคุณที่ใช้บริการ\n อุณหภูมิของคุณคือ : `,
-//   };
-//   await client.pushMessage("Udd611add626ecfaf01162e056eb76652", response);
-//   return res.status(200);
-// }
