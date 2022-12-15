@@ -88,7 +88,7 @@ const createProfile = async (req: NextApiRequest, res: NextApiResponse) => {
       response
     );
 
-    return res.redirect(302, "/checkin");
+    return res.redirect(302, "/");
   } catch (error) {
     return res.status(500).json({ message: error });
   }
