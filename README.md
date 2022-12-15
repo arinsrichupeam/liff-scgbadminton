@@ -34,4 +34,13 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 https://liff.scgbadmintonacademy.com/api/auth/callback/line
+
 http://localhost:3000/api/auth/callback/line
+
+yarn install
+
+yarn build
+
+npx prisma generate
+
+npx prisma migrate

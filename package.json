@@ -6,6 +6,8 @@
     "start": "next start -p 8000"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.5",
+    "@heroicons/react": "^2.0.13",
     "@line/bot-sdk": "^7.5.2",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "4.6.0",
