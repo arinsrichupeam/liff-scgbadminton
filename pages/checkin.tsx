@@ -12,7 +12,7 @@ const CheckIn: NextPage<{}> = ({}) => {
   const [count, setCount] = useState(0);
 
   const options = [];
-  // options.push("สนามที่เข้าใช้งาน");
+  options.push("สนามที่เข้าใช้งาน");
   for (var i = 1; i <= 12; i++) {
     options.push(i);
   }
