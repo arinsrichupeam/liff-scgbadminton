@@ -15,7 +15,7 @@ export default function App({
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>SCG Badminton Liff</title>
+        <title>SCG Badminton Academy</title>
       </Head>
       <SessionProvider session={session}>
         <Component {...pageProps} />

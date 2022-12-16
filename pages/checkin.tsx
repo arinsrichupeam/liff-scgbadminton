@@ -12,6 +12,7 @@ const CheckIn: NextPage<{}> = ({}) => {
   const [count, setCount] = useState(0);
 
   const options = [];
+  // options.push("สนามที่เข้าใช้งาน");
   for (var i = 1; i <= 12; i++) {
     options.push(i);
   }
@@ -223,8 +224,7 @@ const CheckIn: NextPage<{}> = ({}) => {
                       id="question-radio-g1-3"
                       type="radio"
                       value={"3"}
-                      defaultChecked
-                      required
+                      required={true}
                       name="q1"
                       className="w-4 h-4 flex-none"
                     />
@@ -287,8 +287,7 @@ const CheckIn: NextPage<{}> = ({}) => {
                   <div className="flex items-center mb-4">
                     <input
                       id="question-radio-g2-3"
-                      required
-                      defaultChecked
+                      required={true}
                       value={"3"}
                       type="radio"
                       name="q2"
