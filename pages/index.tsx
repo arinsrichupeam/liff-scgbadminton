@@ -1,36 +1,32 @@
 import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Router from "next/router";
 import Logo from "../components/logo";
-import { NextPage } from "next";
+import { NextApiRequest, NextPage } from "next";
 
-const Home: NextPage<{}> = ({}) => {
+const Home: NextPage<{ req: NextApiRequest }> = ({}) => {
   const { data: session, status } = useSession();
 
+  if (status == "unauthenticated") {
+    void signIn("line");
+  }
+
   useEffect(() => {
-    if (status === "unauthenticated") {
-      const timer = setTimeout(() => {
-        console.log("session null");
-        void signIn("line");
-      }, 3000);
-    } else if (status === "authenticated") {
+    if (session) {
       const fetchData = async () => {
-        await fetch(`/api/users/${session.user?.email}`)
-          .then((res) => res.json())
-          .then((data) => {
-            localStorage.setItem("profile", JSON.stringify(data));
-            if (data.profile[0] == null) {
-              console.log("profile null");
-              const timer = setTimeout(() => {
-                return Router.push("register");
-              }, 3000);
+        console.log("get user from database");
+        await fetch(`/api/users/${session?.user?.name}`).then((res) =>
+          res.json().then((data) => {
+            localStorage.setItem("profile", JSON.stringify(data[0]));
+            if (data[0].profile.length == 0) {
+              return Router.push("register");
             } else {
-              const timer = setTimeout(() => {
-                return Router.push("checkin");
-              }, 3000);
+              return Router.push("checkin");
             }
-          });
+          })
+        );
       };
+
       fetchData();
     }
   }, [session]);

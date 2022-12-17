@@ -1,4 +1,5 @@
 import { TextMessage } from "@line/bot-sdk";
+import { create } from "domain";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import lineSdk from "../line";
@@ -45,29 +46,9 @@ const createProfile = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { body: required } = req;
 
-    await prisma.user.update({
+    const user = await prisma.user.findUnique({
       where: {
-        email: required["email"],
-      },
-      data: {
-        profile: {
-          create: {
-            firstname: required["first_name"],
-            lastname: required["last_name"],
-            nickname: required["nick_name"],
-            sex: required["sex"],
-            phone: required["phone"],
-            birthday: new Date(required["birthday"]),
-          },
-        },
-      },
-    });
-
-    console.log("createProfile success");
-
-    const account = await prisma.user.findUnique({
-      where: {
-        email: required["email"],
+        id: required["uid"],
       },
       include: {
         accounts: {
@@ -75,18 +56,66 @@ const createProfile = async (req: NextApiRequest, res: NextApiResponse) => {
             providerAccountId: true,
           },
         },
+        profile: true,
       },
     });
 
-    const response: TextMessage = {
-      type: "text",
-      text: `สมัครสมาชิกเรียบร้อย\n `,
-    };
+    if (user?.profile.length != 0) {
+      await prisma.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          email: required["email"],
+          profile: {
+            update: {
+              where: {
+                id: user?.profile[0].id ? user?.profile[0].id : "0",
+              },
+              data: {
+                firstname: required["first_name"],
+                lastname: required["last_name"],
+                nickname: required["nick_name"],
+                sex: required["sex"],
+                phone: required["phone"],
+                birthday: new Date(required["birthday"]),
+              },
+            },
+          },
+        },
+      });
+      console.log("Update Profile success");
+    } else {
+      await prisma.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          email: required["email"],
+          profile: {
+            create: {
+              firstname: required["first_name"],
+              lastname: required["last_name"],
+              nickname: required["nick_name"],
+              sex: required["sex"],
+              phone: required["phone"],
+              birthday: new Date(required["birthday"]),
+            },
+          },
+        },
+      });
+      console.log("Create Profile success");
 
-    await lineSdk.pushMessage(
-      `${account?.accounts[0].providerAccountId}`,
-      response
-    );
+      const response: TextMessage = {
+        type: "text",
+        text: `สมัครสมาชิกเรียบร้อย\n `,
+      };
+
+      await lineSdk.pushMessage(
+        `${user?.accounts[0].providerAccountId}`,
+        response
+      );
+    }
 
     return res.redirect(302, "/");
   } catch (error) {

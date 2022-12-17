@@ -1,4 +1,5 @@
 import { type } from "os";
+import type { DefaultUser } from "next-auth";
 
 declare global {
   namespace NodeJS {
@@ -46,4 +47,12 @@ declare global {
     question: String;
     checkinTime: DateTime?;
   };
+}
+
+declare module "next-auth" {
+  interface Session {
+    user?: DefaultUser & {
+      id: string;
+    };
+  }
 }

@@ -28,9 +28,22 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
       Q2: `${required["q2"]}`,
     });
 
+    const user = await prisma.user.findUnique({
+      where: {
+        id: required["uid"],
+      },
+      include: {
+        accounts: {
+          select: {
+            providerAccountId: true,
+          },
+        },
+      },
+    });
+
     await prisma.user.update({
       where: {
-        email: required["email"],
+        id: user?.id,
       },
       data: {
         covidCheckin: {
@@ -53,7 +66,7 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
       text: `Checkin At : \n ${required["checkin_time"]} \n Cord Number: ${required["coad_number"]}`,
     };
 
-    await lineSdk.pushMessage(`${required["uid"]}`, response);
+    await lineSdk.pushMessage(`${user?.accounts[0].providerAccountId}`, response);
 
     return res.redirect(302, "/thankyou");
   } catch (error) {

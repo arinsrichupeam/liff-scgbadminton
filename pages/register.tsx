@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Logo from "../components/logo";
 import Datepicker from "../components/datepicker";
@@ -6,6 +6,19 @@ import SessionExpire from "../components/sessionexpire";
 
 export default function register() {
   const { data: session } = useSession();
+  const [profile, setProfile] = useState<UserProfile>();
+
+  const fetchData = () => {
+    console.log("get profile from localstorage");
+    const store = localStorage.getItem("profile");
+    const obj = JSON.parse(`${store}`);
+    setProfile(obj);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [session]);
+
   if (session) {
     return (
       <div className="flex min-h-full items-center justify-center pl-10 pr-10 py-12 px-4 sm:px-6 lg:px-8">
@@ -20,6 +33,15 @@ export default function register() {
           </div>
 
           <form action="/api/users" method="post">
+            <input
+              type="uid"
+              id="uid"
+              name="uid"
+              className="hidden border border-gray-300 text-gray-300 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 w-full p-2.5 "
+              defaultValue={profile?.id}
+              readOnly
+            />
+
             <div className="grid gap-5 mb-6 md:grid-cols-2 ">
               <div className="form-group">
                 <label
@@ -95,7 +117,7 @@ export default function register() {
                   htmlFor="birthday"
                   className="block mb-2 text-sm font-SCGRegular text-gray-900 "
                 >
-                  Birdth day
+                  Birth day
                 </label>
                 <Datepicker></Datepicker>
               </div>
@@ -119,20 +141,24 @@ export default function register() {
             </div>
 
             <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-SCGRegular text-gray-900 "
-              >
-                Email address
-              </label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                value={session?.user?.email?.toString()}
-                readOnly
-                className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-              />
+              <div className="form-group">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-SCGRegular text-gray-900"
+                >
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="border border-gray-300 text-gray-900 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 block w-full p-2.5 "
+                  placeholder="อีเมล์"
+                  defaultValue={session?.user?.email?.toString()}
+                  readOnly={session?.user?.email ? true : false}
+                  required
+                />
+              </div>
             </div>
 
             <div className="flex items-start mb-6">
@@ -146,7 +172,7 @@ export default function register() {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm font-medium text-gray-900"
+                className="ml-2 text-sm font-SCGBold text-gray-900"
               >
                 I agree with the{" "}
                 <a href="#" className="text-red-600 hover:underline ">

@@ -17,22 +17,23 @@ const CheckIn: NextPage<{}> = ({}) => {
     options.push(i);
   }
 
+  const fetchData = async () => {
+    await fetch(`/api/checkin/${session?.user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data != "") {
+          setCount(data[0]._count.covidCheckin);
+        }
+      });
+  };
+
   useEffect(() => {
-    if (session) {
-      const fetchData = async () => {
-        const store = await localStorage.getItem("profile");
-        const obj = JSON.parse(`${store}`);
-        setProfile(obj);
-        await fetch(`/api/checkin/${session?.user?.email}`)
-          .then((res) => res.json())
-          .then((data) => {
-            if (data != "") {
-              setCount(data[0]._count.covidCheckin);
-            }
-          });
-      };
-      fetchData();
-    }
+    console.log("get profile from localstorage");
+    const store = localStorage.getItem("profile");
+    const obj = JSON.parse(`${store}`);
+    setProfile(obj);
+
+    fetchData();
   }, [session]);
 
   if (session) {
@@ -49,15 +50,11 @@ const CheckIn: NextPage<{}> = ({}) => {
           </div>
           <form action="/api/checkin" method="post">
             <input
-              name="email"
-              className="hidden"
-              value={`${session?.user?.email}`}
-              readOnly
-            />
-            <input
+              type="uid"
+              id="uid"
               name="uid"
-              className="hidden"
-              value={`${profile?.accounts[0].providerAccountId}`}
+              className=" border border-gray-300 text-gray-300 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 w-full p-2.5 "
+              defaultValue={profile?.id}
               readOnly
             />
 
