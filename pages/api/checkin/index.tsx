@@ -48,10 +48,9 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         covidCheckin: {
           create: {
-            temp: parseFloat(required["temp"]),
-            cordNumber: parseInt(required["coad_number"]),
-            question: obj,
             checkinTime: new Date(required["checkin_time"]),
+            temp: parseFloat(required["temp"]),
+            question: obj,
           },
         },
       },
@@ -66,7 +65,10 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
       text: `Checkin At : \n ${required["checkin_time"]} \n Cord Number: ${required["coad_number"]}`,
     };
 
-    await lineSdk.pushMessage(`${user?.accounts[0].providerAccountId}`, response);
+    await lineSdk.pushMessage(
+      `${user?.accounts[0].providerAccountId}`,
+      response
+    );
 
     return res.redirect(302, "/thankyou");
   } catch (error) {

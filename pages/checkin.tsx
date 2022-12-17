@@ -10,11 +10,13 @@ const CheckIn: NextPage<{}> = ({}) => {
   const { data: session } = useSession();
   const [profile, setProfile] = useState<UserProfile>();
   const [count, setCount] = useState(0);
+  const [select, setSelect] = useState();
 
   const options = [];
-  options.push("สนามที่เข้าใช้งาน");
+  // options.push(["0", "สนามที่เข้าใช้งาน"]);
+
   for (var i = 1; i <= 12; i++) {
-    options.push(i);
+    options.push([i, i]);
   }
 
   const fetchData = async () => {
@@ -53,7 +55,7 @@ const CheckIn: NextPage<{}> = ({}) => {
               type="uid"
               id="uid"
               name="uid"
-              className=" border border-gray-300 text-gray-300 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 w-full p-2.5 "
+              className="hidden border border-gray-300 text-gray-300 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 w-full p-2.5 "
               defaultValue={profile?.id}
               readOnly
             />
@@ -102,7 +104,7 @@ const CheckIn: NextPage<{}> = ({}) => {
               </div>
             </div>
 
-            <div className="mb-6">
+            <div className="grid gap-5 mb-6 md:grid-cols-2 ">
               <div className="form-group">
                 <label
                   htmlFor="checkin-time"
@@ -118,27 +120,6 @@ const CheckIn: NextPage<{}> = ({}) => {
                   value={new Date().toLocaleString("EN")}
                   readOnly
                 />
-              </div>
-            </div>
-            <div className="grid gap-5 mb-6 md:grid-cols-2 ">
-              <div className="form-group">
-                <label
-                  htmlFor="coad-number"
-                  className="block mb-2 text-sm font-SCGRegular text-gray-900 "
-                >
-                  Coad Number
-                </label>
-                <select
-                  id="coad-number"
-                  name="coad_number"
-                  className="border bg-white h-12 p-2.5 border-gray-300 text-gray-900 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 block w-full"
-                >
-                  {options.map((index) => (
-                    <option value={index} key={index} className="p-5">
-                      {index}
-                    </option>
-                  ))}
-                </select>
               </div>
 
               <div className="form-group">

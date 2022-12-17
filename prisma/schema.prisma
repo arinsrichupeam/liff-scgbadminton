@@ -74,7 +74,7 @@ model CovidCheckin {
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
   temp        Float
-  cordNumber  Int
+  cordNumber  Int?
   question    String
   checkinTime DateTime?
 }
