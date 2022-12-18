@@ -58,15 +58,17 @@ model VerificationToken {
 }
 
 model Profile {
-  id        String    @id @default(cuid())
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  firstname String?
-  lastname  String?
-  nickname  String?
-  sex       String?
-  phone     String?
-  birthday  DateTime?
+  id         String    @id @default(cuid())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  firstname  String?
+  lastname   String?
+  nickname   String?
+  sex        String?
+  phone      String?
+  birthday   DateTime?
+  createdate DateTime  @default(dbgenerated())
+  modifydate DateTime?
 }
 
 model CovidCheckin {
@@ -77,4 +79,6 @@ model CovidCheckin {
   cordNumber  Int?
   question    String
   checkinTime DateTime?
+  modifydate  DateTime?
+  midifyby    String?
 }

@@ -62,7 +62,7 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const response: TextMessage = {
       type: "text",
-      text: `Checkin At : \n ${required["checkin_time"]} \n Cord Number: ${required["coad_number"]}`,
+      text: `Checkin At : \n ${required["checkin_time"]} }`,
     };
 
     await lineSdk.pushMessage(

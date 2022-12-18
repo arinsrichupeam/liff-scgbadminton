@@ -43,4 +43,4 @@ yarn build
 
 npx prisma generate
 
-npx prisma migrate
+npx prisma migrate dev

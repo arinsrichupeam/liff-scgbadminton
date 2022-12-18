@@ -7,32 +7,32 @@ import { NextApiRequest, NextPage } from "next";
 const Home: NextPage<{ req: NextApiRequest }> = ({}) => {
   const { data: session, status } = useSession();
 
-  if (status == "unauthenticated") {
-    void signIn("line");
-  }
+  // if (status == "unauthenticated") {
+  //   void signIn("line");
+  // }
 
-  useEffect(() => {
-    if (session) {
-      const fetchData = async () => {
-        console.log("get user from database");
-        await fetch(`/api/users/${session?.user?.name}`).then((res) =>
-          res.json().then((data) => {
-            localStorage.setItem("profile", JSON.stringify(data[0]));
-            if (data[0].profile.length == 0) {
-              return Router.push("register");
-            } else {
-              return Router.push("checkin");
-            }
-          })
-        );
-      };
+  // useEffect(() => {
+  //   if (session) {
+  //     const fetchData = async () => {
+  //       console.log("get user from database");
+  //       await fetch(`/api/users/${session?.user?.name}`).then((res) =>
+  //         res.json().then((data) => {
+  //           localStorage.setItem("profile", JSON.stringify(data[0]));
+  //           if (data[0].profile.length == 0) {
+  //             return Router.push("register");
+  //           } else {
+  //             return Router.push("checkin");
+  //           }
+  //         })
+  //       );
+  //     };
 
-      fetchData();
-    }
-  }, [session]);
+  //     fetchData();
+  //   }
+  // }, [session]);
 
   return (
-    <div className="flex min-h-full items-center justify-center h-screen pl-10 pr-10 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-full items-center justify-center h-screen py-12 px-10 sm:px-6 lg:px-8">
       <div className="text-center w-full max-w-md space-y-8">
         <Logo></Logo>
         <svg
