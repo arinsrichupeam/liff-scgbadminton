@@ -1,5 +1,5 @@
 import { signIn, useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import Router from "next/router";
 import Logo from "../components/logo";
 import { NextApiRequest, NextPage } from "next";

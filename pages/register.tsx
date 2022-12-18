@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Logo from "../components/logo";
 import Datepicker from "../components/datepicker";
 import SessionExpire from "../components/sessionexpire";
+import Link from "next/link";
 
 export default function register() {
   const { data: session } = useSession();
@@ -175,9 +176,9 @@ export default function register() {
                 className="ml-2 text-sm font-SCGBold text-gray-900"
               >
                 I agree with the{" "}
-                <a href="#" className="text-red-600 hover:underline ">
+                <Link href="/terms" className="text-red-600 hover:underline ">
                   terms and conditions
-                </a>
+                </Link>
                 .
               </label>
             </div>
