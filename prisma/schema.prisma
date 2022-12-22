@@ -67,7 +67,7 @@ model Profile {
   sex        String?
   phone      String?
   birthday   DateTime?
-  createdate DateTime  @default(dbgenerated())
+  createdate DateTime  @default(now())
   modifydate DateTime?
 }
 

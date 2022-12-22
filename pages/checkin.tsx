@@ -12,12 +12,12 @@ const CheckIn: NextPage<{}> = ({}) => {
   const [count, setCount] = useState(0);
   const [select, setSelect] = useState();
 
-  const options = [];
-  // options.push(["0", "สนามที่เข้าใช้งาน"]);
+  // const options = [];
+  // // options.push(["0", "สนามที่เข้าใช้งาน"]);
 
-  for (var i = 1; i <= 12; i++) {
-    options.push([i, i]);
-  }
+  // for (var i = 1; i <= 12; i++) {
+  //   options.push([i, i]);
+  // }
 
   const fetchData = async () => {
     await fetch(`/api/checkin/${session?.user?.email}`)

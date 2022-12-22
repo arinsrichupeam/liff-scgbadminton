@@ -9,10 +9,15 @@ import {
   getDaysInMonth,
   getDay,
 } from "date-fns";
+import { NextPage } from "next";
 
 type DatepickerType = "date" | "month" | "year";
 
-export default function App() {
+interface DatepickerProps {
+  name: String;
+}
+
+function CheckIn({ name }: DatepickerProps): JSX.Element {
   const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [dayCount, setDayCount] = useState<Array<number>>([]);
   const [blankDays, setBlankDays] = useState<Array<number>>([]);
@@ -148,7 +153,6 @@ export default function App() {
     );
     generateArrayOfYears(datepickerHeaderDate.getFullYear());
   }, [datepickerHeaderDate]);
-
   return (
     <div className="">
       <div className="">
@@ -157,7 +161,7 @@ export default function App() {
           <input
             type="text"
             readOnly
-            name="birthday"
+            name={`${name}`}
             className="border border-gray-300 text-gray-900 font-SCGRegular text-sm rounded-lg focus:ring-red-500 focus:outline-none focus:ring-1 focus:border-red-500 block w-full p-2.5 "
             placeholder="Select date"
             value={format(selectedDate, "yyyy-MM-dd")}
@@ -348,3 +352,5 @@ export default function App() {
     </div>
   );
 }
+
+export default CheckIn;

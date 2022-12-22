@@ -120,7 +120,7 @@ export default function register() {
                 >
                   Birth day
                 </label>
-                <Datepicker></Datepicker>
+                <Datepicker name="birthday"></Datepicker>
               </div>
 
               <div className="form-group">

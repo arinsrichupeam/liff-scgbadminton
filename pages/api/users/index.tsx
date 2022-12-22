@@ -1,5 +1,4 @@
 import { TextMessage } from "@line/bot-sdk";
-import { create } from "domain";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import lineSdk from "../line";

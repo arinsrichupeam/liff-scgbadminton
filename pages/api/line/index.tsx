@@ -1,13 +1,7 @@
-import React from "react";
-import type { NextApiRequest, NextApiResponse } from "next";
 import {
   ClientConfig,
   Client,
-  middleware,
-  MiddlewareConfig,
-  WebhookEvent,
-  TextMessage,
-  MessageAPIResponseBase,
+
 } from "@line/bot-sdk";
 
 declare let global: { lineSdk: Client };

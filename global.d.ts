@@ -11,6 +11,13 @@ declare global {
       SECRET: string;
     }
   }
+  type checkinTable = {
+    id: string;
+    temp: Int;
+    cordNumber: string?;
+    checkinTime: DateTime;
+    user: UserProfile;
+  };
 
   type UserProfile = {
     id: string;

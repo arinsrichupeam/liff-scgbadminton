@@ -1,9 +1,5 @@
 import { TextMessage } from "@line/bot-sdk";
-import { Decimal } from "@prisma/client/runtime";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
-import { useEffect, useState } from "react";
 import prisma from "../../../lib/prisma";
 import lineSdk from "../line";
 
@@ -14,10 +10,12 @@ export default async function handler(
   switch (req.method) {
     case "POST":
       return await insertCheckin(req, res);
+    case "GET":
+      return await getAllCheckin(res);
   }
 }
-function formatDate(string: string) {
-  return new Date(string).toLocaleString();
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleString();
 }
 
 const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -60,17 +58,19 @@ const insertCheckin = async (req: NextApiRequest, res: NextApiResponse) => {
       `covidCheckin success :  ${formatDate(required["checkin_time"])}`
     );
 
-    const response: TextMessage = {
-      type: "text",
-      text: `Checkin At : ${required["checkin_time"]}`,
-    };
-
-    await lineSdk.pushMessage(
-      `${user?.accounts[0].providerAccountId}`,
-      response
-    );
-
     return res.redirect(302, "/thankyou");
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
+const getAllCheckin = async (res: NextApiResponse) => {
+  try {
+    const checkincount = await prisma.covidCheckin.findMany({
+      distinct: ["checkinTime"],
+    });
+
+    res.status(200).json(checkincount);
   } catch (error) {
     return res.status(500).json({ message: error });
   }
