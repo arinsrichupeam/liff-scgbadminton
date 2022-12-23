@@ -7,32 +7,32 @@ import {
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
 import Datepicker from "../../components/datepicker";
-import DataTable, { TableColumn } from "react-data-table-component";
+// import DataTable, { TableColumn } from "react-data-table-component";
 
 export default function covid() {
-  const [table, setTable] = useState<[]>();
+  const [table, setTable] = useState<checkinTable[]>();
   const [checkin, setCheckin] = useState(0);
   const [users, setUsers] = useState(0);
 
-  const columns: TableColumn<checkinTable>[] = [
-    {
-      name: "Line Name",
-      selector: (row) => row.user.name,
-    },
-    {
-      name: "Checkin Date",
-      selector: (row) => row.checkinTime,
-    },
-    {
-      name: "Temp",
-      selector: (row) => row.temp,
-    },
-    {
-      name: "Coad",
-      selector: (row) => row.cordNumber,
-    },
-    { name: "Edit" },
-  ];
+  // const columns: TableColumn<checkinTable>[] = [
+  //   {
+  //     name: "Line Name",
+  //     selector: (row) => row.user.name,
+  //   },
+  //   {
+  //     name: "Checkin Date",
+  //     selector: (row) => row.checkinTime,
+  //   },
+  //   {
+  //     name: "Temp",
+  //     selector: (row) => row.temp,
+  //   },
+  //   {
+  //     name: "Coad",
+  //     selector: (row) => row.cordNumber,
+  //   },
+  //   { name: "Edit" },
+  // ];
 
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -223,9 +223,12 @@ export default function covid() {
             </div>
             <div className="overflow-x-auto  shadow-md sm:rounded-lg">
               {/* <DataTable columns={columns} data={table} pagination /> */}
-              {/* <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 ">
                   <tr>
+                    <th scope="col" className="py-3 px-6">
+                      No.
+                    </th>
                     <th scope="col" className="py-3 px-6">
                       Customer name
                     </th>
@@ -247,18 +250,19 @@ export default function covid() {
                   </tr>
                 </thead>
                 <tbody>
-                  {table?.map((data) => {
+                  {table?.map((key, value) => {
                     return (
                       <tr
                         className="bg-white border-b hover:bg-gray-50"
-                        key={`${data.id}`}
+                        key={`${key.id}`}
                       >
+                        <td className="py-4 px-6">{value}</td>
                         <th
                           scope="row"
                           className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                         >
                           <Image
-                            src={`${data.user.image}`}
+                            src={`${key.user.image}`}
                             alt={"Img"}
                             width={0}
                             height={0}
@@ -268,20 +272,20 @@ export default function covid() {
 
                           <div className="pl-3">
                             <div className="text-base font-semibold text-gray-500">
-                              {data.user.profile[0].firstname}{" "}
-                              {data.user.profile[0].lastname}
+                              {key.user.profile[0].firstname}{" "}
+                              {key.user.profile[0].lastname}
                             </div>
                             <div className="font-normal text-gray-500">
-                              {data.user.email}
+                              {key.user.email}
                             </div>
                           </div>
                         </th>
-                        <td className="py-4 px-6">{data.user.name}</td>
+                        <td className="py-4 px-6">{key.user.name}</td>
                         <td className="py-4 px-6">
-                          {new Date(data.checkinTime).toLocaleString("EN")}
+                          {new Date(key.checkinTime).toLocaleString("EN")}
                         </td>
-                        <td className="py-4 px-6">{data.temp}</td>
-                        <td className="py-4 px-6">{data.cordNumber}</td>
+                        <td className="py-4 px-6">{key.temp}</td>
+                        <td className="py-4 px-6">{key.cordNumber}</td>
                         <td className="py-4 px-6 text-right">
                           <a
                             href="#"
@@ -292,9 +296,9 @@ export default function covid() {
                         </td>
                       </tr>
                     );
-                  })}                  
+                  })}
                 </tbody>
-              </table> */}
+              </table>
             </div>
           </div>
         </div>
