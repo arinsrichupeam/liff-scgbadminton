@@ -6,6 +6,8 @@ import {
   MapPinIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
+import * as XLSX from "xlsx";
+
 import Datepicker from "../../components/datepicker";
 // import DataTable, { TableColumn } from "react-data-table-component";
 
@@ -33,6 +35,19 @@ export default function covid() {
   //   },
   //   { name: "Edit" },
   // ];
+
+  const exportSLSX = () => {
+    
+    // const data = JSON.stringify(table);
+    // const obj = JSON.parse(data);
+
+    // console.log(obj);
+    // const worksheet = XLSX.utils.json_to_sheet(obj);
+    // const workbook = XLSX.utils.book_new();
+
+    // XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    // XLSX.writeFile(workbook, "DataSheet.xlsx");
+  };
 
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,7 +85,7 @@ export default function covid() {
           setUsers(data.length);
         });
     };
-    fetchData();
+    // fetchData();
   }, []);
 
   return (
@@ -217,6 +232,16 @@ export default function covid() {
                     className="text-white ml-2 right-2.5 bottom-2.5 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 "
                   >
                     Search
+                  </button>
+                </div>
+                <div className="inline-flex">
+                  <button
+                    type="button"
+                    // disabled={table?.length != 0 ? false : true}
+                    onClick={() => exportSLSX()}
+                    className="text-white ml-2 right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
+                  >
+                    Export
                   </button>
                 </div>
               </form>
