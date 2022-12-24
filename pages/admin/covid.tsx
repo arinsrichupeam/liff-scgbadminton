@@ -11,10 +11,37 @@ import * as XLSX from "xlsx";
 import Datepicker from "../../components/datepicker";
 // import DataTable, { TableColumn } from "react-data-table-component";
 
+type covid_export = {
+  no: Number;
+  checkinTime: String;
+  name: String;
+  phone: String;
+  email: String;
+  temp: Number;
+  q1: String;
+  q2: String;
+  court: String;
+};
+
+enum Q1 {
+  "Null",
+  "มีอาการไข้ ร่วมกับไอ น้ำมูก เจ็บคอ ไม่ได้กลิ่น หายใจเร็วหายใจลำบาก อย่างใดอย่างหนึ่ง Fever with cough, runny nose, sore throat, no smell, rapid and trouble breathing, trouble breathing. Either one.",
+  "มีอาการ อ่อนเพลีย เหนื่อย, ไอแห้ง, เจ็บคอ, ไข้, มีน้ำมูก, ปวดศีรษะ เวียนศีรษะ คลื่นไส้ ปวดเมื่อยตามร่างกาย Fatigue, tiredness, dry cough, sore throat, fever, runny nose, headache, dizziness, nausea, body aches and diarrhea. Either one.",
+  "ไม่มีอาการ None",
+}
+
+enum Q2 {
+  "Null",
+  "F0 : เป็นผู้ป่วย COVID-19 *Yes. With COVID-19 patient",
+  "F1 : เป็นผู้ป่วยสัมผัสใกล้ชิด F0 *Yes. With F0",
+  "ไม่ได้สัมผัสใกล้ชิด *No close contact",
+}
+
 export default function covid() {
   const [table, setTable] = useState<checkinTable[]>();
   const [checkin, setCheckin] = useState(0);
   const [users, setUsers] = useState(0);
+  const [table_export, setExport] = useState(true);
 
   // const columns: TableColumn<checkinTable>[] = [
   //   {
@@ -37,16 +64,56 @@ export default function covid() {
   // ];
 
   const exportSLSX = () => {
-    
-    // const data = JSON.stringify(table);
-    // const obj = JSON.parse(data);
+    const convertData = table?.map((value, index) => {
+      const question = JSON.parse(value.question);
+      const checkin = new Date(value.checkinTime).toLocaleString("EN");
 
-    // console.log(obj);
-    // const worksheet = XLSX.utils.json_to_sheet(obj);
-    // const workbook = XLSX.utils.book_new();
+      const dataConvert: covid_export = {
+        no: index,
+        checkinTime: checkin,
+        name: `${value.user.profile[0].firstname} ${value.user.profile[0].lastname}`,
+        phone: `${value.user.profile[0].phone}`,
+        email: value.user.email,
+        temp: value.temp,
+        q1: `${Object.values(Q1)[question["Q1"]]}`,
+        q2: `${Object.values(Q2)[question["Q2"]]}`,
+        court: `${value.cordNumber}`,
+      };
 
-    // XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    // XLSX.writeFile(workbook, "DataSheet.xlsx");
+      return dataConvert;
+    });
+
+    const data = JSON.stringify(convertData);
+    const obj = JSON.parse(data);
+    const worksheet = XLSX.utils.json_to_sheet(obj);
+    const workbook = XLSX.utils.book_new();
+
+    const start = new Date(
+      Math.min.apply(
+        null,
+        obj.map(function (e: covid_export) {
+          return new Date(e.checkinTime.toString());
+        })
+      )
+    );
+
+    const end = new Date(
+      Math.max.apply(
+        null,
+        obj.map(function (e: covid_export) {
+          return new Date(e.checkinTime.toString());
+        })
+      )
+    );
+
+    const bookname = `CovidReport ${
+      start.toDateString() == end.toDateString()
+        ? `${start.toLocaleDateString("TH")}`
+        : `${start.toLocaleDateString("TH")} - ${end.toLocaleDateString("TH")}`
+    }.xlsx`;
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    XLSX.writeFile(workbook, bookname);
   };
 
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,6 +135,7 @@ export default function covid() {
       .then((res) => res.json())
       .then((data) => {
         setTable(data);
+        setExport(false);
       });
   };
 
@@ -85,7 +153,7 @@ export default function covid() {
           setUsers(data.length);
         });
     };
-    // fetchData();
+    fetchData();
   }, []);
 
   return (
@@ -237,7 +305,7 @@ export default function covid() {
                 <div className="inline-flex">
                   <button
                     type="button"
-                    // disabled={table?.length != 0 ? false : true}
+                    disabled={table_export}
                     onClick={() => exportSLSX()}
                     className="text-white ml-2 right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
                   >
@@ -267,7 +335,7 @@ export default function covid() {
                       Temp
                     </th>
                     <th scope="col" className="py-3 px-6">
-                      Coad
+                      Court
                     </th>
                     <th scope="col" className="py-3 px-6">
                       <span className="sr-only">Edit</span>

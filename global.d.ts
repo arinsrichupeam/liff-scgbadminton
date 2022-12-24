@@ -16,6 +16,7 @@ declare global {
     temp: Int;
     cordNumber: string?;
     checkinTime: DateTime;
+    question: string;
     user: UserProfile;
   };
 

@@ -21,8 +21,8 @@ const getData = async (start: Date, end: Date) => {
         gte: start,
         lte: end,
       },
-    },    
-    select: {      
+    },
+    select: {
       id: true,
       temp: true,
       cordNumber: true,
@@ -37,11 +37,12 @@ const getData = async (start: Date, end: Date) => {
             select: {
               firstname: true,
               lastname: true,
+              phone: true,
             },
           },
         },
       },
-    },    
+    },
   });
 };
 
